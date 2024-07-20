@@ -4,6 +4,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const customerRoutes = require('./routes/CustomerRoutes');
 const teamRoutes = require('./routes/TeamRoutes');
+const employeeRoutes = require('./routes/EmployeeRoutes');
 
 
 const app = express();
@@ -15,6 +16,7 @@ connectDB();
 
 app.use('/customers', customerRoutes);
 app.use('/teams', teamRoutes);
+app.use('/employees', employeeRoutes);
 
 app.get('/', (req, res) => {
     res.send('HouseMovers API is running');

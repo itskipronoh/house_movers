@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Customer = require('../models/CustomerModel');
+// const Customer = require('../models/CustomerModel');
 
 // Register a new customer
 const registerCustomer = async (req, res) => {
@@ -25,13 +26,16 @@ const registerCustomer = async (req, res) => {
         });
 
         await newCustomer.save();
-        res.status(201).json({ message: 'Customer registered successfully' });
+        const customerDetails = newCustomer.toObject();
+    
+        res.status(201).json(customerDetails);
+       
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-// Login customer
+
 const loginCustomer = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -60,5 +64,8 @@ const loginCustomer = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+
 
 module.exports = { registerCustomer, loginCustomer };
