@@ -26,7 +26,9 @@ const registerTeam = async (req, res) => {
         });
 
         await newTeamMember.save();
-        res.status(201).json({ message: 'Team member registered successfully' });
+        const teamDetails = newTeamMember.toObject();
+    
+        res.status(201).json(teamDetails);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
