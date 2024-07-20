@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const customerRoutes = require('./routes/CustomerRoutes');
+const teamRoutes = require('./routes/TeamRoutes');
 
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 connectDB();
 
 app.use('/customers', customerRoutes);
+app.use('/teams', teamRoutes);
 
 app.get('/', (req, res) => {
     res.send('HouseMovers API is running');
