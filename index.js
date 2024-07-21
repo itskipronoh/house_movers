@@ -6,7 +6,7 @@ const customerRoutes = require('./routes/CustomerRoutes');
 const teamRoutes = require('./routes/TeamRoutes');
 const employeeRoutes = require('./routes/EmployeeRoutes');
 const itemRoutes = require('./routes/ItemRoutes');
-
+const vehicleRoutes = require('./routes/VehicleRoutes');
 
 const app = express();
 app.use(cors());
@@ -19,6 +19,7 @@ app.use('/customers', customerRoutes);
 app.use('/teams', teamRoutes);
 app.use('/employees', employeeRoutes);
 app.use('/items', itemRoutes);
+app.use('/vehicles', vehicleRoutes);
 app.get('/', (req, res) => {
     res.send('HouseMovers API is running');
 });
