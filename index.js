@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const customerRoutes = require('./routes/CustomerRoutes');
 const teamRoutes = require('./routes/TeamRoutes');
 const employeeRoutes = require('./routes/EmployeeRoutes');
+const itemRoutes = require('./routes/ItemRoutes');
 
 
 const app = express();
@@ -17,7 +18,7 @@ connectDB();
 app.use('/customers', customerRoutes);
 app.use('/teams', teamRoutes);
 app.use('/employees', employeeRoutes);
-
+app.use('/items', itemRoutes);
 app.get('/', (req, res) => {
     res.send('HouseMovers API is running');
 });
