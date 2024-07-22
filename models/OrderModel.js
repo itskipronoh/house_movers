@@ -17,12 +17,14 @@ const orderSchema = new mongoose.Schema({
             ref: 'Item',
         },
     ],
-    pickUpAddress: {
-        type: String,
+    pickupLocationId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PickupLocation',
         required: true,
     },
-    dropOffAddress: {
-        type: String,
+    destinationLocationId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'DestinationLocation',
         required: true,
     },
     dateTime: {
