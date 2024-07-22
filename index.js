@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to database
+
 connectDB();
 
 app.use('/customers', customerRoutes);
