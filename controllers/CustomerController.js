@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Customer = require('../models/CustomerModel');
+const Customer = require('../models/user');
 
 
 // Register a new customer

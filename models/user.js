@@ -10,14 +10,29 @@ const customerSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    password: {
+    idNumber:{
         type: String,
-        required: true,
+        unique: true,
+        
     },
     phone: {
         type: String,
         required: true,
-    }
+    },
+    role: {
+        type: String,
+        required: [true, 'Please provide a role'],
+        enum: {
+            values: ['customer', 'employee', 'team'],
+            message: '{VALUE} is not a valid role'
+        }
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+  
+   
 });
 
 const Customer = mongoose.model('Customer', customerSchema);

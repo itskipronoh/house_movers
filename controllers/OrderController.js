@@ -1,5 +1,5 @@
 const Order = require('../models/OrderModel');
-const Customer = require('../models/CustomerModel');
+const Customer = require('../models/user');
 const Vehicle = require('../models/VehicleModel');
 const Item = require('../models/ItemModel');
 const PickupLocation = require('../models/PickupLocationModel');
