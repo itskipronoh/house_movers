@@ -15,6 +15,25 @@ app.use(cors());
 app.use(express.json());
 
 
+
+// middleware
+
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  res.status(status).json({
+    error: {
+      message: err.message,
+      status: status,
+      stack: err.stack  
+    }
+  });
+});
+
+
+
+
+
+
 connectDB();
 
 app.use('/auth', userRoutes);
