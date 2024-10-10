@@ -3,8 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
-const customerRoutes = require('./routes/CustomerRoutes');
-const teamRoutes = require('./routes/TeamRoutes');
 const employeeRoutes = require('./routes/EmployeeRoutes');
 const itemRoutes = require('./routes/ItemRoutes');
 const vehicleRoutes = require('./routes/VehicleRoutes');
@@ -17,8 +15,6 @@ app.use(express.json());
 
 // routes
 app.use('/auth', userRoutes);
-app.use('/customers', customerRoutes);
-app.use('/teams', teamRoutes);
 app.use('/employees', employeeRoutes);
 app.use('/items', itemRoutes);
 app.use('/vehicles', vehicleRoutes);

@@ -51,6 +51,10 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const query = email ? { email } : { phone };
 
+    if (!query) {
+      throw new CustomError.BadRequestError('Invalid email or password');
+    }
+
     // Check if customer exists
     const user = await User.findOne(query);
 

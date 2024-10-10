@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const customerSchema = new mongoose.Schema({
+const usersSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -13,6 +13,7 @@ const customerSchema = new mongoose.Schema({
     idNumber:{
         type: String,
         unique: true,
+        length: [8, 'ID number must be 8 characters'],
         
     },
     phone: {
@@ -35,5 +36,5 @@ const customerSchema = new mongoose.Schema({
    
 });
 
-const Customer = mongoose.model('Customer', customerSchema);
-module.exports = Customer;
+const User = mongoose.model('Users', usersSchema);
+module.exports = User;
