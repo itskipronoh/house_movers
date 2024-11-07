@@ -9,6 +9,7 @@ const CustomError = require('../errors');
 // Public
 
 const registerUser = asyncHandler(async (req, res) => {
+  console.log(req.body);
   try {
     const { name, email, idNumber, role, phone, password } = req.body;
 
@@ -38,6 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     res.status(201).json(UserDetails);
   } catch (error) {
+    console.log(error);
     throw new CustomError.BadRequestError('Invalid user data');
   }
 });
@@ -78,6 +80,7 @@ const loginUser = asyncHandler(async (req, res) => {
     user.password = undefined;
     res.status(200).json({ token, user });
   } catch (error) {
+    console.log(error);
     throw new CustomError.BadRequestError('Invalid email or password');
   }
 });

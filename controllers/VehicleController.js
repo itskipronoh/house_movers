@@ -2,6 +2,7 @@ const Vehicle = require('../models/VehicleModel');
 
 // Create a new vehicle
 const createVehicle = async (req, res) => {
+    console.log(req.body);
     try {
         const { name, modelYear, manufacturer, registerNumberPlate, loadingCapacity, categoryType } = req.body;
         const newVehicle = await Vehicle.create({ name, modelYear, manufacturer, registerNumberPlate, loadingCapacity, categoryType });
