@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-  // Get the token from the request headers, query, body, or wherever it is sent
+
   const tokenWithoutBearer = req.headers.authorization;
   const token = tokenWithoutBearer.split(' ')[1];
 

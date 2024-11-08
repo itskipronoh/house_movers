@@ -1,26 +1,69 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  orderId: String,
-  userDetails: {
-    name: String,
-    email: String,
-    phone: String,
-  },
-  fromLocations: String,
-  toLocations: String,
-  itemsDetails: Array,
-  status: String,
-  selectedDriver: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Team',
+    ref: 'User',
+    required: true,
   },
-  selectedLabours: [
+  pickupLocation: {
+    type: String,
+    required: true,
+  },
+  pickupLocationType: {
+    type: String,
+    required: true,
+  },
+  PickupOtherCategory: {
+    type: String,
+    default: '',
+  },
+  DestinationLocationType: {
+    type: String,
+    required: true,
+  },
+  DestinationOtherCategory: {
+    type: String,
+    default: '',
+  },
+  DestinationLocation: {
+    type: String,
+    required: true,
+  },
+  items: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Team',
+      name: {
+        type: String,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
     },
   ],
+  selectedTeam: {
+    name: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+    },
+    wage: {
+      type: Number,
+      required: true,
+    },
+  },
+}, {
+  timestamps: true,
 });
 
-module.exports = mongoose.model('Order', orderSchema);
+const Order = mongoose.model('Order', orderSchema);
+
+module.exports = Order;
