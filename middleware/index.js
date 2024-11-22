@@ -1,11 +1,11 @@
 const asyncHandler = require('./asyncHandler');
 const notFound = require('./notFound');
-const errorHandler = require('./errorHandler');
+const errorHandlerMiddleware = require('./errorHandler');
 const authMiddleware = require('./authMiddleware');
 
 module.exports = {
-    asyncHandler,
-    notFound,
-    errorHandler,
-    authMiddleware
-}
+  asyncHandler,
+  notFound,
+  errorHandlerMiddleware,
+  authMiddleware,
+};

@@ -9,39 +9,33 @@ const CustomError = require('../errors');
 // Public
 
 const registerUser = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  try {
-    const { name, email, idNumber, role, phone, password } = req.body;
+  const { name, email, idNumber, role, phone, password } = req.body;
 
-    // Check if customer already exists
-    const isUserAvailable = await User.findOne({ email });
-    if (isUserAvailable) {
-      throw new CustomError.BadRequestError('User already exists');
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new customer
-    const newUser = new User({
-      name,
-      email,
-      idNumber,
-      role,
-      phone,
-      password: hashedPassword,
-    });
-
-    await newUser.save();
-    const UserDetails = newUser.toObject();
-
-    UserDetails.password = undefined;
-
-    res.status(201).json(UserDetails);
-  } catch (error) {
-    console.log(error);
-    throw new CustomError.BadRequestError('Invalid user data');
+  // Check if customer already exists
+  const isUserAvailable = await User.findOne({ email });
+  if (isUserAvailable) {
+    throw new CustomError.BadRequestError('User already exists');
   }
+
+  // Hash the password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Create a new customer
+  const newUser = new User({
+    name,
+    email,
+    idNumber,
+    role,
+    phone,
+    password: hashedPassword,
+  });
+
+  await newUser.save();
+  const UserDetails = newUser.toObject();
+
+  UserDetails.password = undefined;
+
+  res.status(201).json(UserDetails);
 });
 
 // Login a user

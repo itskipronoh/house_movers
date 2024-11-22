@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const usersSchema = new mongoose.Schema({
   name: {
@@ -12,7 +12,7 @@ const usersSchema = new mongoose.Schema({
   },
   idNumber: {
     type: String,
-    default: "N/A",
+    default: 'N/A',
   },
   phone: {
     type: String,
@@ -20,10 +20,10 @@ const usersSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    required: [true, "Please provide a role"],
+    required: [true, 'Please provide a role'],
     enum: {
-      values: ["customer", "employee", "team", "admin"],
-      message: "{VALUE} is not a valid role",
+      values: ['customer', 'employee', 'team', 'admin'],
+      message: '{VALUE} is not a valid role',
     },
   },
   password: {
@@ -32,5 +32,5 @@ const usersSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("Users", usersSchema);
+const User = mongoose.model('Users', usersSchema);
 module.exports = User;

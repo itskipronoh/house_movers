@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-
   const tokenWithoutBearer = req.headers.authorization;
   const token = tokenWithoutBearer.split(' ')[1];
 

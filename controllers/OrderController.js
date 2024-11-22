@@ -1,4 +1,5 @@
 const Order = require('../models/OrderModel');
+const CustomError = require('../errors');
 
 exports.viewOrders = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ exports.viewOrders = async (req, res) => {
     );
     res.json(order);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching orders', error });
+    throw new CustomError.BadRequestError('Not found');
   }
 };
 
@@ -22,7 +23,7 @@ exports.updateOrder = async (req, res) => {
     );
     res.json(updatedOrder);
   } catch (error) {
-    res.status(500).json({ message: 'Error updating order', error });
+    throw new CustomError.BadRequestError('Error updating order');
   }
 };
 
@@ -38,11 +39,11 @@ exports.updateOrderStatus = async (req, res) => {
       { new: true }
     );
     if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
+      throw new CustomError.NotFoundError('Order not found');
     }
     res.json(order);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update order status' });
+    throw new CustomError.BadRequestError('Failed to update order status');
   }
 };
 
@@ -52,7 +53,7 @@ exports.placeOrder = async (req, res) => {
   const user = req.user.id;
 
   if (!user) {
-    return res.status(401).json({ message: 'Unauthorized access' });
+    throw new CustomError.UnauthorizedError('Unauthorized access');
   }
 
   const {
