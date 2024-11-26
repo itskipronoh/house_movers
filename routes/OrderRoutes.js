@@ -4,6 +4,7 @@ const {
   updateOrder,
   updateOrderStatus,
   placeOrder,
+  getAllOrders
 } = require('../controllers/OrderController');
 
 const verifyToken = require('../middleware/authMiddleware');
@@ -11,6 +12,8 @@ const verifyToken = require('../middleware/authMiddleware');
 
 
 const router = express.Router();
+
+router.get('/orders', getAllOrders);
 
 router.post('/placeOrder',verifyToken,  placeOrder);
 router.post('/vieworders', viewOrders);

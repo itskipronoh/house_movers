@@ -1,5 +1,24 @@
 const Order = require('../models/OrderModel');
 const CustomError = require('../errors');
+const User = require('../models/user');
+
+exports.getAllOrders = async (req, res) => {
+  const orders = await Order.find();
+
+  const ordersWithUserNames = await Promise.all(
+    orders.map(async (order) => {
+      const user = await User.findById(order.user);
+      return {
+        ...order.toObject(),
+        userOrder: user ? user.name : 'Unknown User',
+      };
+    })
+  );
+
+  res.json({ orders: ordersWithUserNames });
+};
+
+
 
 exports.viewOrders = async (req, res) => {
   try {

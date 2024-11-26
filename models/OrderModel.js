@@ -5,15 +5,15 @@ const orderSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      // required: true,
+      required: true,
     },
     pickupLocation: {
       type: String,
-      // required: true,
+      required: true,
     },
     pickupLocationType: {
       type: String,
-      // required: true,
+      required: true,
     },
     PickupOtherCategory: {
       type: String,
@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema(
     },
     DestinationLocationType: {
       type: String,
-      // required: true,
+      required: true,
     },
     DestinationOtherCategory: {
       type: String,
@@ -29,36 +29,36 @@ const orderSchema = new mongoose.Schema(
     },
     DestinationLocation: {
       type: String,
-      // required: true,
+      required: true,
     },
     items: [
       {
         name: {
           type: String,
-          // required: true,
+          required: true,
         },
         description: {
           type: String,
-          // required: true,
+          required: true,
         },
         quantity: {
           type: Number,
-          // required: true,
+          required: true,
         },
       },
     ],
     selectedTeam: {
       name: {
         type: String,
-        // required: true,
+        required: true,
       },
       rating: {
         type: Number,
-        // required: true,
+        required: true,
       },
       wage: {
         type: Number,
-        // required: true,
+        required: true,
       },
     },
   },
