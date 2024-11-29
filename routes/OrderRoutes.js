@@ -16,7 +16,7 @@ const router = express.Router();
 router.get('/orders', getAllOrders);
 
 router.post('/placeOrder',verifyToken,  placeOrder);
-router.post('/vieworders', viewOrders);
+router.get('/viewOrder/:id', viewOrders);
 router.post('/updateOrder', updateOrder);
 router.post('/updateOrderStatus', updateOrderStatus);
 

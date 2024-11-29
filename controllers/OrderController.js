@@ -1,8 +1,9 @@
 const Order = require('../models/OrderModel');
 const CustomError = require('../errors');
 const User = require('../models/user');
+const asyncHandler = require('../middleware/asyncHandler');
 
-exports.getAllOrders = async (req, res) => {
+exports.getAllOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find();
 
   const ordersWithUserNames = await Promise.all(
@@ -16,59 +17,81 @@ exports.getAllOrders = async (req, res) => {
   );
 
   res.json({ orders: ordersWithUserNames });
-};
+});
+exports.viewOrders = asyncHandler(async (req, res) => {
+  const id = req.params.id;
 
-
-
-exports.viewOrders = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const order = await Order.findById(id).populate(
-      'selectedDriver selectedLabours'
-    );
-    res.json(order);
-  } catch (error) {
-    throw new CustomError.BadRequestError('Not found');
+  if (!id) {
+    throw new CustomError.BadRequestError('Order ID is required');
   }
-};
 
-exports.updateOrder = async (req, res) => {
-  try {
-    const { orderId, selectedDriver, selectedLabours } = req.body;
-    const updatedOrder = await Order.findOneAndUpdate(
-      { orderId },
-      { selectedDriver, selectedLabours },
-      { new: true }
-    );
-    res.json(updatedOrder);
-  } catch (error) {
-    throw new CustomError.BadRequestError('Error updating order');
+  const order = await Order.findById(id);
+
+  if (!order) {
+    throw new CustomError.NotFoundError('Order not found');
   }
-};
+
+  res.json({ order });
+});
+
+exports.updateOrderStatus = asyncHandler(async (req, res) => {
+  const { id, status } = req.body;
+
+  if (!id) {
+    throw new CustomError.BadRequestError('Order ID is required');
+  }
+
+  const order = await Order.findById(id);
+
+  if (!order) {
+    throw new CustomError.NotFoundError('Order not found');
+  }
+
+  order.status = status;
+  await order.save();
+
+  res.json({ order });
+});
 
 // In OrderController.js
 
-exports.updateOrderStatus = async (req, res) => {
-  const { orderId, status } = req.body;
+exports.updateOrder = asyncHandler(async (req, res) => {
+  const {
+    pickupLocation,
+    pickupLocationType,
+    PickupOtherCategory,
+    DestinationLocationType,
+    DestinationOtherCategory,
+    DestinationLocation,
+    items,
+    selectedTeam,
+  } = req.body;
 
-  try {
-    const order = await OrderModel.findByIdAndUpdate(
-      orderId,
-      { status },
-      { new: true }
-    );
-    if (!order) {
-      throw new CustomError.NotFoundError('Order not found');
-    }
-    res.json(order);
-  } catch (error) {
-    throw new CustomError.BadRequestError('Failed to update order status');
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    throw new CustomError.NotFoundError('Order not found');
   }
-};
+
+  order.pickupLocation = pickupLocation || order.pickupLocation;
+  order.pickupLocationType = pickupLocationType || order.pickupLocationType;
+  order.PickupOtherCategory = PickupOtherCategory || order.PickupOtherCategory;
+  order.DestinationLocationType =
+    DestinationLocationType || order.DestinationLocationType;
+  order.DestinationOtherCategory =
+    DestinationOtherCategory || order.DestinationOtherCategory;
+  order.DestinationLocation = DestinationLocation || order.DestinationLocation;
+  order.items = items || order.items;
+  order.selectedTeam = selectedTeam || order.selectedTeam;
+
+  await order.save();
+
+  res.json({ message: 'Order updated successfully', order });
+});
 
 // place order
 
-exports.placeOrder = async (req, res) => {
+exports.placeOrder = asyncHandler(async (req, res) => {
   const user = req.user.id;
 
   if (!user) {
@@ -101,4 +124,4 @@ exports.placeOrder = async (req, res) => {
   await order.save();
 
   res.json({ message: 'Order placed successfully', order });
-};
+});
